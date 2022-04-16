@@ -24,7 +24,7 @@ mongoose
 	})
 	.then((result) => {
 		console.log("connection made to mogodb");
-		app.listen(4000);
+		app.listen(process.env.PORT || 5000);
 	})
 	.catch((err) => console.log(err));
 
