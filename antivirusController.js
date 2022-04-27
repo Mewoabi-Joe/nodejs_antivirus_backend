@@ -14,6 +14,7 @@ module.exports.antivirus_get = async (req, res) => {
 //
 module.exports.antivirus_post = async (req, res) => {
 	try {
+		console.log(req.body);
 		const computerObj = req.body;
 		const systemAntivirusesInfoArray = computerObj.systemAntivirusesInfo;
 		const systemAntivirusesInfo = systemAntivirusesInfoArray.map(
