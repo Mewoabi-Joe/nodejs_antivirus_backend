@@ -15,11 +15,18 @@ module.exports.antivirus_get = async (req, res) => {
 module.exports.antivirus_post = async (req, res) => {
 	try {
 		const computerObj = req.body;
-		const systemAntivirusInfo = new Map(Object.entries(computerObj.systemAntivirusInfo));
+		const systemAntivirusesInfoArray = computerObj.systemAntivirusesInfo;
+		const systemAntivirusesInfo = systemAntivirusesInfoArray.map(
+			(systemAntivirusInfo) => new Map(Object.entries(systemAntivirusInfo))
+		);
 		const systemInfo = new Map(Object.entries(computerObj.systemInfo));
-		const computerMap = { systemInfo, systemAntivirusInfo };
-		console.log("Recieved:", computerObj);
-		await Antivirus.create(computerMap);
+		const computerMap = { systemInfo, systemAntivirusesInfo };
+		const theAntivirus = await Antivirus.findOne({ "systemInfo.serial": computerObj.systemInfo.serial });
+		if (theAntivirus) {
+			await Antivirus.updateOne({ _id: theAntivirus._id }, computerMap);
+		} else {
+			await Antivirus.create(computerMap);
+		}
 		res.status(201).json({ success: "Added antivirus" });
 	} catch (err) {
 		console.log(err.message);

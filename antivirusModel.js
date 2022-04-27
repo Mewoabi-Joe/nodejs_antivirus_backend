@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const antivirusSchema = new Schema(
 	{
 		systemInfo: Map,
-		systemAntivirusInfo: [Map],
+		systemAntivirusesInfo: [Map],
 	},
 	{ timestamps: true }
 );
