@@ -2,7 +2,7 @@ const { Antivirus, TestAntivirus } = require("./antivirusModel");
 
 module.exports.antivirus_get = async (req, res) => {
 	try {
-		const antivirus = await Antivirus.find();
+		const antivirus = await Antivirus.find().sort({ updatedAt: 1 });
 		console.log(antivirus);
 		res.status(201).json({ antivirus });
 	} catch (err) {
