@@ -11,9 +11,9 @@ const antivirusSchema = new Schema(
 );
 
 const testAntivirusSchema = new Schema({
-	testAntivirus: [String],
+	testAntiviruses: [String],
 });
 
 const Antivirus = mongoose.model("antivirus", antivirusSchema);
 const TestAntivirus = mongoose.model("testAntivirus", testAntivirusSchema);
-module.exports = Antivirus;
+module.exports = { Antivirus, TestAntivirus };
