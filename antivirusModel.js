@@ -5,10 +5,15 @@ const Schema = mongoose.Schema;
 const antivirusSchema = new Schema(
 	{
 		systemInfo: Map,
-		systemAntivirusInfo: Map,
+		systemAntivirusInfo: [Map],
 	},
 	{ timestamps: true }
 );
 
+const testAntivirusSchema = new Schema({
+	testAntivirus: [String],
+});
+
 const Antivirus = mongoose.model("antivirus", antivirusSchema);
+const TestAntivirus = mongoose.model("testAntivirus", testAntivirusSchema);
 module.exports = Antivirus;
