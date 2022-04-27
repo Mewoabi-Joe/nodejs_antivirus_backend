@@ -41,15 +41,21 @@ module.exports.test_antivirus_get = async (req, res) => {
 module.exports.test_antivirus_post = async (req, res) => {
 	const sentAntivirus = req.body;
 	try {
-		const { _id } = await TestAntivirus.findOne();
-		const modifiedtestAntiviruses = await TestAntivirus.updateOne(
-			{ _id },
-			{
-				$push: {
-					testAntiviruses: sentAntivirus.name,
-				},
-			}
-		);
+		let modifiedtestAntiviruses;
+		const fountTestAntivirus = await TestAntivirus.findOne();
+		if (fountTestAntivirus) {
+			const { _id } = fountTestAntivirus;
+			modifiedtestAntiviruses = await TestAntivirus.updateOne(
+				{ _id },
+				{
+					$push: {
+						testAntiviruses: sentAntivirus.name,
+					},
+				}
+			);
+		} else {
+			modifiedtestAntiviruses = await TestAntivirus.create({ testAntiviruses: [] });
+		}
 		res.status(201).json({ modifiedtestAntiviruses });
 	} catch (err) {
 		console.log(err.message);
