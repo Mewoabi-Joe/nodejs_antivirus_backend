@@ -46,7 +46,7 @@ module.exports.test_antivirus_post = async (req, res) => {
 			{ _id },
 			{
 				$push: {
-					testAntiviruses: sentAntivirus,
+					testAntiviruses: sentAntivirus.name,
 				},
 			}
 		);
